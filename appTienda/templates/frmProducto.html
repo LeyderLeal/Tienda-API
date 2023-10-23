@@ -1,0 +1,93 @@
+{% extends "index.html" %}
+
+{% block encabezado %}
+
+{% endblock %}
+
+{% block menu %}
+    {% include "menu.html" %}
+{% endblock %}
+
+{% block contenido %}
+<br>
+<div class="container h-100 frmProducto">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-10 col-md-8 col-lg-6 col-xl-5">
+            <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center">
+                    <h3 class="mb-5 fw-bold">AGREGAR PRODUCTO</h3>
+                    <hr>
+                    <form id="frmProducto" action="/agregarProducto/" method="post" enctype="multipart/form-data" class="was-validated">
+
+                        {% csrf_token%}
+                        <div class="form-floating mb-4">
+                            <input type="number" name="txtCodigo" id="txtCodigo" class="form-control" required
+                                placeholder="Código del producto" style="border-radius: 12px;" value="{{producto.proCodigo}}">
+                            <label for="txtCodigo">Código del producto:</label>
+                        </div>  
+                        
+                        <div class="form-floating mb-4">
+                            <input type="text" name="txtNombre" id="txtNombre" class="form-control" required
+                                placeholder="Nombre del producto" style="border-radius: 12px;" value="{{producto.proNombre}}">
+                            <label for="txtNombre">Nombre del producto:</label>
+                        </div>  
+                        
+                        <div class="form-floating mb-4">
+                            <input type="number" name="txtPrecio" id="txtPrecio" class="form-control" required
+                                placeholder="Precio del producto" style="border-radius: 12px;" value="{{producto.proPrecio}}">
+                            <label for="txtPrecio">Precio del producto:</label>
+                        </div>  
+                        
+                        <div class="form-floating mb-4">
+                            <select class="form-select" id="cbCategoria" name="cbCategoria" required style="border-radius: 12px;" value="{{producto.proCategoria}}">
+                                <option value="">Seleccione Categoria: </option>
+                                {% for categoria in listaCategorias %}
+                                     {% if categoria.idCategoria == producto.proCategoria %}
+                                    <option value="{{categoria.id}}"> {{categoria.catNombre}} </option>
+                                {% else %} 
+                                    <option value="{{categoria.id}}">{{categoria.catNombre}}</option> 
+                                {% endif %}
+                            {% endfor %}
+                              <label for="cbCategoria" class="form-label">Categoria del producto</label>
+                            <select>
+                        </div>
+                        
+                        <div class="form-floating mb-4">
+                            <input type="file" name="fileFoto" id="fileFoto" class="form-control" accept=".jpg" accept=".jpg" placeholder="Cargar foto" style="border-radius: 12px; padding-top: 30px;">
+                            <label for="fileFoto">Seleccione Foto</label> <br>
+                        </div>
+                        
+                        <div class="text-center">
+                            <img id="imagenProducto" src="" alt="" width="100" height="100">
+                        </div>
+                        
+                        <hr>
+                        
+                        <div class="mt-5">
+                            <button class="btn btn-danger rounded-pill mb-2 fw-bold" style="letter-spacing: 2px;">AGREGAR</button>
+                        </div>
+                    
+                    </form>
+                    <div>
+                        {% if mensaje %}
+                            {% if estado %}
+                                <script>
+                                    Swal.fire("AGREGAR PRODUCTO", '{{mensaje}}', "success")
+                                </script>
+                            {% else %}
+                                <script>
+                                    Swal.fire("AGREGAR PRODUCTO", '{{mensaje}}', "warning")
+                                </script>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block piePagina %}
+    {% include "piePagina.html" %}
+{% endblock %}

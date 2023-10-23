@@ -1,0 +1,24 @@
+.section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(../img/background.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+}
+
+section {
+    width: 100%;
+    height: 100vh;
+    background: linear-gradient(135deg, #0074D9 0%, #7FDBFF 100%);
+}
+
+
+
+footer{
+    width: 100%;
+    height: 100px;
+}
